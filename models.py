@@ -1,1 +1,9 @@
+from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
+
+# 👇 Más adelante añadiremos:
+# - class Product(Base): ...
+# - class Order(Base): ...
+# - class OrderLine(Base): ...
 
