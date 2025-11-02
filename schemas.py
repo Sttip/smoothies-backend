@@ -1,19 +1,21 @@
+# schemas.py
+from typing import List, Optional
 from pydantic import BaseModel, EmailStr
-from typing import List
+from pydantic import ConfigDict  # v2
 
-# -------- Productos (salida) --------
 class ProductOut(BaseModel):
     id: int
     slug: str
     name: str
-    description: str
+    description: str | None = None
     price: int
     color: str
     stock: int
-    class Config:
-        from_attributes = True  # (orm_mode en Pydantic v1)
+    active: bool
 
-# -------- Órdenes (entrada/salida) --------
+    # Pydantic v2: permite construir desde objetos ORM (SQLAlchemy)
+    model_config = ConfigDict(from_attributes=True)
+
 class OrderLineIn(BaseModel):
     product_id: int
     qty: int
@@ -21,8 +23,3 @@ class OrderLineIn(BaseModel):
 class OrderCreate(BaseModel):
     email: EmailStr
     items: List[OrderLineIn]
-
-class OrderOut(BaseModel):
-    id: int
-    email: EmailStr
-    total: int

@@ -6,10 +6,10 @@ Base = declarative_base()
 class Product(Base):
     __tablename__ = "products"
     id = Column(Integer, primary_key=True)
-    slug = Column(String(80), nullable=False, unique=True, index=True)  # ej: "berry-blast"
+    slug = Column(String(80), nullable=False, unique=True, index=True)
     name = Column(String(120), nullable=False)
     description = Column(Text, default="")
-    price = Column(Integer, nullable=False)  # CLP en enteros
+    price = Column(Integer, nullable=False)      # CLP enteros
     color = Column(String(20), default="#cccccc")
     stock = Column(Integer, nullable=False, default=0)
     active = Column(Boolean, nullable=False, default=True)
@@ -17,7 +17,7 @@ class Product(Base):
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True)
-    email = Column(String(180), nullable=False)   # comprador
+    email = Column(String(180), nullable=False)
     total = Column(Integer, nullable=False, default=0)
     lines = relationship("OrderLine", back_populates="order", cascade="all, delete-orphan")
 
@@ -31,7 +31,4 @@ class OrderLine(Base):
     subtotal = Column(Integer, nullable=False)
 
     order = relationship("Order", back_populates="lines")
-
-    __table_args__ = (
-        UniqueConstraint("order_id", "product_id", name="uq_order_product_once"),
-    )
+    __table_args__ = (UniqueConstraint("order_id", "product_id", name="uq_order_product_once"),)

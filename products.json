@@ -1,0 +1,65 @@
+﻿{
+    "value":  [
+                  {
+                      "id":  1,
+                      "slug":  "berry-blast",
+                      "name":  "Berry Blast",
+                      "description":  "Fresas, arÃ¡ndanos, frambuesas",
+                      "price":  4990,
+                      "color":  "#ff6b6b",
+                      "stock":  12,
+                      "active":  true
+                  },
+                  {
+                      "id":  2,
+                      "slug":  "tropical-paradise",
+                      "name":  "Tropical Paradise",
+                      "description":  "Mango, piÃ±a, maracuyÃ¡",
+                      "price":  5490,
+                      "color":  "#ffd166",
+                      "stock":  8,
+                      "active":  true
+                  },
+                  {
+                      "id":  3,
+                      "slug":  "green-energy",
+                      "name":  "Green Energy",
+                      "description":  "Espinaca, plÃ¡tano, kiwi",
+                      "price":  5990,
+                      "color":  "#06d6a0",
+                      "stock":  5,
+                      "active":  true
+                  },
+                  {
+                      "id":  4,
+                      "slug":  "choco-protein",
+                      "name":  "Choco Protein",
+                      "description":  "Cacao con whey y almendras",
+                      "price":  6290,
+                      "color":  "#8b5cf6",
+                      "stock":  10,
+                      "active":  true
+                  },
+                  {
+                      "id":  5,
+                      "slug":  "matcha-boost",
+                      "name":  "Matcha Boost",
+                      "description":  "Matcha, plÃ¡tano y coco",
+                      "price":  5790,
+                      "color":  "#22c55e",
+                      "stock":  7,
+                      "active":  true
+                  },
+                  {
+                      "id":  6,
+                      "slug":  "piÃ±a-colada-fit",
+                      "name":  "PiÃ±a Colada Fit",
+                      "description":  "PiÃ±a y coco sin azÃºcar",
+                      "price":  5290,
+                      "color":  "#facc15",
+                      "stock":  0,
+                      "active":  true
+                  }
+              ],
+    "Count":  6
+}
