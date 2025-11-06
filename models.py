@@ -1,19 +1,29 @@
-from sqlalchemy import Column, Integer, String, Text, Boolean, ForeignKey, UniqueConstraint
+# models.py
+from sqlalchemy import (
+    Column, Integer, String, Text, Boolean,
+    ForeignKey, UniqueConstraint, DateTime, func
+)
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
+# ---------------------------
+# PRODUCTOS
+# ---------------------------
 class Product(Base):
     __tablename__ = "products"
     id = Column(Integer, primary_key=True)
     slug = Column(String(80), nullable=False, unique=True, index=True)
     name = Column(String(120), nullable=False)
     description = Column(Text, default="")
-    price = Column(Integer, nullable=False)      # CLP enteros
+    price = Column(Integer, nullable=False)  # CLP enteros
     color = Column(String(20), default="#cccccc")
     stock = Column(Integer, nullable=False, default=0)
     active = Column(Boolean, nullable=False, default=True)
 
+# ---------------------------
+# PEDIDOS
+# ---------------------------
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True)
@@ -32,3 +42,14 @@ class OrderLine(Base):
 
     order = relationship("Order", back_populates="lines")
     __table_args__ = (UniqueConstraint("order_id", "product_id", name="uq_order_product_once"),)
+
+# ---------------------------
+# USUARIOS (nuevo)
+# ---------------------------
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    email = Column(String(180), nullable=False, unique=True, index=True)
+    password_hash = Column(String(255), nullable=False)
+    is_active = Column(Boolean, nullable=False, default=True)  # ← este campo era el que faltaba
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
