@@ -1,46 +1,44 @@
 # main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from config import settings
-from routers import products, orders
-import json
 
-# 🔐 Importar router de autenticación
-from routers import auth  # asegúrate de tener routers/auth.py creado
+from config import settings
+from routers import products, orders, auth
 
 app = FastAPI(title="Smoothies API")
 
-# 🔧 Manejo robusto de CORS
-try:
-    if isinstance(settings.CORS_ORIGINS, str):
-        CORS_LIST = json.loads(settings.CORS_ORIGINS)
-    else:
-        CORS_LIST = settings.CORS_ORIGINS
-except Exception:
-    CORS_LIST = [
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-    ]
-
-print(f"🌐 CORS habilitado para: {CORS_LIST}")
+# ---------------------------
+# 🔧 CORS
+# ---------------------------
+origins = settings.CORS_ORIGINS
+if isinstance(origins, str):
+    # por si viene como JSON en texto
+    try:
+        import json
+        origins = json.loads(origins)
+    except Exception:
+        origins = [origins]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_LIST,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+
+# ---------------------------
+# 🔎 Health
+# ---------------------------
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
+
+# ---------------------------
 # 🔗 Routers
+# ---------------------------
 app.include_router(products.router)
 app.include_router(orders.router)
-app.include_router(auth.router)  # 👈 se monta el router de autenticación
+app.include_router(auth.router)
