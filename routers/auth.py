@@ -80,3 +80,9 @@ def update_address(user_id: int, payload: AddressUpdate, db: Session = Depends(g
     db.commit()
     db.refresh(user)
     return UserOut.model_validate(user)
+
+
+
+# -------- Dirección de envío de usuario --------
+# -------- Dirección de envío de usuario --------
+# -------- Dirección de envío de usuario --------
